@@ -290,6 +290,7 @@ def train_model(
             )
             trainer = pl.Trainer(
                 accelerator='auto',
+                gpus=1,
                 max_epochs=config['max_epochs'],
                 check_val_every_n_epoch=config.get("check_val_every_n_epoch", 5),
                 callbacks=[
