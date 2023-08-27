@@ -27,7 +27,7 @@ N_CLASSES = 200
 #                in the original CBM paper's repository
 #                found here: https://github.com/yewsiang/ConceptBottleneck
 # CAN BE OVERWRITTEN WITH AN ENV VARIABLE DATASET_DIR
-DATASET_DIR = os.environ.get("DATASET_DIR", 'cem/data/CUB200/')
+DATASET_DIR = "./cem/data/CUB200/"
 
 
 #########################################################
@@ -744,7 +744,7 @@ def find_class_imbalance(pkl_file, multiple_attr=False, attr_idx=-1):
     """
     imbalance_ratio = []
     base_dir = os.path.join(DATASET_DIR, 'class_attr_data_10')
-    data = pickle.load(open(os.path.join(base_dir, pkl_file), 'rb'))
+    data = pickle.load(open(pkl_file, 'rb'))
     n = len(data)
     n_attr = len(data[0]['attribute_label'])
     if attr_idx >= 0:
@@ -789,8 +789,10 @@ def generate_data(
     if root_dir is None:
         root_dir = DATASET_DIR
     base_dir = os.path.join(root_dir, 'class_attr_data_10')
+    print(f"The base dir is {base_dir}")
     seed_everything(seed)
     train_data_path = os.path.join(base_dir, 'train.pkl')
+    print(f"Train data path {train_data_path}")
     if config.get('weight_loss', False):
         imbalance = find_class_imbalance(train_data_path, True)
     else:
