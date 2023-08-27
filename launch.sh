@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=96G
 #SBATCH --gpus=1
-#SBATCH --time=02:00:00
+#SBATCH --time=030:00:00
 #SBATCH --output=output.o%j.%N
 
 # load the environments needed
