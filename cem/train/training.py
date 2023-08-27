@@ -39,7 +39,7 @@ def construct_model(
         model_cls = models_cem.ConceptEmbeddingModel
         extra_params = {
             "emb_size": config["emb_size"],
-            "shared_prob_gen": config["shared_prob_gen"],
+            "shared_prob_gen": True,
             "intervention_policy": intervention_policy,
             "training_intervention_prob": config.get(
                 'training_intervention_prob',

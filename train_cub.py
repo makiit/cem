@@ -129,6 +129,7 @@ def main(
         config['training_intervention_prob'] = 0.25
         config['emb_size'] = config['emb_size']
         config["embeding_activation"] = "leakyrelu"
+        config["shared_prob_gen"]=True
         mixed_emb_shared_prob_model,  mixed_emb_shared_prob_test_results = \
             training.train_model(
                 n_concepts=n_concepts,
