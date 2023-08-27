@@ -538,7 +538,7 @@ def path_modifier(img_path):
                 '/juice/scr/scr102/scr/thaonguyen/CUB_supervision/datasets/CUB_200_2011/images/',
                 './bird_dataset/images/'
             )
-    print(f" Transformed path {img_path}")
+    # print(f" Transformed path {img_path}")
     return img_path 
 
 
@@ -583,7 +583,7 @@ class CUBDataset(Dataset):
         img_path = img_data['img_path']
         # print(f"Finally loading images with root {self.root_dir} and image path {img_path}")
         if self.path_transform == None:
-            print(f"Path transform is None")
+            # print(f"Path transform is None")
             img_path = img_path.replace(
                 '/juice/scr/scr102/scr/thaonguyen/CUB_supervision/datasets/',
                 './bird_datasets/'
@@ -610,7 +610,7 @@ class CUBDataset(Dataset):
                 img_path_split = img_path.split('/')
                 split = 'train' if self.is_train else 'test'
                 img_path = '/'.join(img_path_split[:2] + [split] + img_path_split[2:])
-                print(f"Final converted image path {img_path}")
+                # print(f"Final converted image path {img_path}")
                 img = Image.open(img_path).convert('RGB')
         else:
             img_path = self.path_transform(img_path)
@@ -802,10 +802,10 @@ def generate_data(
     if root_dir is None:
         root_dir = DATASET_DIR
     base_dir = os.path.join(root_dir, 'class_attr_data_10')
-    print(f"The base dir is {base_dir}")
+    # print(f"The base dir is {base_dir}")
     seed_everything(seed)
     train_data_path = os.path.join(base_dir, 'train.pkl')
-    print(f"Train data path {train_data_path}")
+    # print(f"Train data path {train_data_path}")
     if config.get('weight_loss', False):
         imbalance = find_class_imbalance(train_data_path, True)
     else:
