@@ -536,7 +536,7 @@ class StratifiedSampler(Sampler):
 def path_modifier(img_path):
     img_path = img_path.replace(
                 '/juice/scr/scr102/scr/thaonguyen/CUB_supervision/datasets/CUB_200_2011/images/',
-                './bird_datasets/images/'
+                './bird_dataset/images/'
             )
     print(f" Transformed path {img_path}")
     return img_path 
