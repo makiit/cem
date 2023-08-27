@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=cem-experiments-cub
+#SBATCH --job-name=cem-cub-experiments
 #### Change account below
 #SBATCH --account=ddp390
 #SBATCH --partition=gpu-shared
