@@ -532,6 +532,16 @@ class StratifiedSampler(Sampler):
     def __len__(self):
         return len(self.class_vector)
 
+
+def path_modifier(img_path):
+    img_path = img_path.replace(
+                '/juice/scr/scr102/scr/thaonguyen/CUB_supervision/datasets/CUB_200_2011/images/',
+                './bird_datasets/images/'
+            )
+    print(f" Transformed path {img_path}")
+    return img_path 
+
+
 class CUBDataset(Dataset):
     """
     Returns a compatible Torch Dataset object customized for the CUB dataset
@@ -571,10 +581,12 @@ class CUBDataset(Dataset):
     def __getitem__(self, idx):
         img_data = self.data[idx]
         img_path = img_data['img_path']
+        # print(f"Finally loading images with root {self.root_dir} and image path {img_path}")
         if self.path_transform == None:
+            print(f"Path transform is None")
             img_path = img_path.replace(
                 '/juice/scr/scr102/scr/thaonguyen/CUB_supervision/datasets/',
-                '../data/CUB200/'
+                './bird_datasets/'
             )
             # Trim unnecessary paths
             try:
@@ -598,6 +610,7 @@ class CUBDataset(Dataset):
                 img_path_split = img_path.split('/')
                 split = 'train' if self.is_train else 'test'
                 img_path = '/'.join(img_path_split[:2] + [split] + img_path_split[2:])
+                print(f"Final converted image path {img_path}")
                 img = Image.open(img_path).convert('RGB')
         else:
             img_path = self.path_transform(img_path)
@@ -686,7 +699,7 @@ def load_data(
     num_workers=1,
     concept_transform=None,
     label_transform=None,
-    path_transform=None,
+    path_transform=path_modifier,
 ):
     """
     Note: Inception needs (299,299,3) images with inputs scaled between -1 and 1
