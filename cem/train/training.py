@@ -289,7 +289,7 @@ def train_model(
                 f'{full_run_name}.pt'
             )
             trainer = pl.Trainer(
-                gpus=gpu,
+                accelerator='auto',
                 max_epochs=config['max_epochs'],
                 check_val_every_n_epoch=config.get("check_val_every_n_epoch", 5),
                 callbacks=[
@@ -384,7 +384,7 @@ def train_model(
         ]
 
         trainer = pl.Trainer(
-            gpus=gpu,
+            accelerator='auto',
             max_epochs=config['max_epochs'],
             check_val_every_n_epoch=config.get("check_val_every_n_epoch", 5),
             callbacks=callbacks,
@@ -638,7 +638,7 @@ def train_independent_and_sequential_model(
         enter_obj = utils.EmptyEnter()
     with enter_obj as run:
         trainer = pl.Trainer(
-            gpus=gpu,
+            accelerator='auto',
             # We will distribute half epochs in one model and half on the other
             max_epochs=config['max_epochs'],
             check_val_every_n_epoch=config.get("check_val_every_n_epoch", 5),
@@ -795,7 +795,7 @@ def train_independent_and_sequential_model(
             # Train the independent concept to label model
             print("[Training independent concept to label model]")
             ind_c2y_trainer = pl.Trainer(
-                gpus=gpu,
+                accelerator='auto',
                 # We will distribute half epochs in one model and half on the
                 # other
                 max_epochs=config.get('c2y_max_epochs', 50),
@@ -836,7 +836,7 @@ def train_independent_and_sequential_model(
             # Train the sequential concept to label model
             print("[Training sequential concept to label model]")
             seq_c2y_trainer = pl.Trainer(
-                gpus=gpu,
+                accelerator='auto',
                 # We will distribute half epochs in one model and half on the
                 # other
                 max_epochs=config.get('c2y_max_epochs', 50),
@@ -928,7 +928,7 @@ def train_independent_and_sequential_model(
     if test_dl is not None:
         ind_model.freeze()
         ind_trainer = pl.Trainer(
-            gpus=gpu,
+            accelerator='auto',
             logger=(
                 logger or
                 (WandbLogger(
@@ -956,7 +956,7 @@ def train_independent_and_sequential_model(
 
         seq_model.freeze()
         seq_trainer = pl.Trainer(
-            gpus=gpu,
+            accelerator='auto',
             logger=(
                 logger or
                 (WandbLogger(
