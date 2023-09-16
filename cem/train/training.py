@@ -148,17 +148,13 @@ def construct_sequential_models(
             x2c_model.fc = torch.nn.Linear(512, n_concepts)
     except Exception as e:
         x2c_model = c_extractor_arch(output_dim=n_concepts)
+        # Changed to task weights
     x2c_model = utils.WrapperModule(
         n_tasks=n_concepts,
         model=x2c_model,
         weight_loss=(
             torch.FloatTensor(imbalance)
             if config['weight_loss'] and (imbalance is not None)
-            else None
-        ),
-        task_class_weights=(
-            torch.FloatTensor(task_class_weights)
-            if (task_class_weights is not None)
             else None
         ),
         learning_rate=config['learning_rate'],
